@@ -1,21 +1,64 @@
 {
   "openapi": "3.0.0",
   "info": {
-      "version": "2.0.0",
-      "title": "Library API",
-      "description": "API documentation for Library entrance"
+    "version": "2.0.0",
+    "title": "Library API",
+    "description": "API documentation for Library entrance"
   },
   "servers": [
-      {
-        "url": "http://localhost:5000"
-      }
-    ],
-    "tags": [
-        {
-            "name": "Requesting session",
-            "description": "Requesting session related endpoints"
-        }
-    ],
-    "paths": {
+    {
+      "url": "http://localhost:5000"
     }
+  ],
+  "tags": [
+    {
+      "name": "Requesting session",
+      "description": "Requesting session related endpoints"
+    }
+  ],
+  "paths": {
+    "/session": {
+      "get": {
+        "tags": [
+          "Requesting session"
+        ],
+        "summary": "Requesting session",
+        "description": "Requests a session using the provided registration number.",
+        "parameters": [
+          {
+            "name": "regnumber",
+            "in": "query",
+            "required": true,
+            "description": "The registration number to request a session.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Session requested successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    }
+  }
 }
