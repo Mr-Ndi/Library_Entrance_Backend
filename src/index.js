@@ -12,7 +12,7 @@ app.use(cors());
 
 await dbConnection();
 
-app.use('/request', routes);
+app.use('/api', routes);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
