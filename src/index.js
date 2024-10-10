@@ -1,5 +1,5 @@
 import express from "express";
-import routes from './api/routes/user.routes.js';
+import routes from "./api/routes/user.routes.js";
 import swaggerUi from 'swagger-ui-express';
 import cors from "cors";
 import swaggerDocument from '../swagger.json' assert { type: 'json' };
