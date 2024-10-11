@@ -24,6 +24,18 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-const User = mongoose.model('User', userSchema);
+const historySchema = new mongoose.Schema({
+    regNo:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User',
+        required:true        
+    }
+});
 
-export default User
+const User = mongoose.model('User', userSchema);
+const History = mongoose.model('History', historySchema );
+
+export default {
+    User,
+    History
+}
