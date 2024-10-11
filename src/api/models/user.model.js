@@ -10,23 +10,29 @@ const userSchema = new mongoose.Schema({
     firstName:{
         type:String,
         required:true,
-        unique:true
     },
-    lastName:{
+    otherName:{
         type:String,
         required:true,
-        unique:true
     },
-    firstName:{
+    department:{
         type:String,
         required:true,
-        unique:true
+    },
+    level:{
+        type:Number,
+        required:true,
+    },
+    gender:{
+        type:String,
+        enum: ['male', 'female'],
+        default:"male"
     }
 });
 
 const historySchema = new mongoose.Schema({
     regNo:{
-        type:mongoose.Schema.Types.ObjectId,
+        type:String,
         ref:'User',
         required:true        
     }
@@ -35,7 +41,7 @@ const historySchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 const History = mongoose.model('History', historySchema );
 
-export default {
+export {
     User,
     History
 }
