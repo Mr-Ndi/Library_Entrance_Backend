@@ -17,24 +17,24 @@
     }
   ],
   "paths": {
-    "/session": {
-      "get": {
-        "tags": [
-          "Requesting session"
-        ],
-        "summary": "Requesting session",
-        "description": "Requests a session using the provided registration number.",
-        "parameters": [
-          {
-            "name": "regnumber",
-            "in": "query",
-            "required": true,
-            "description": "The registration number to request a session.",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
+    "/api/user/{regnumber}": {
+  "get": {
+    "tags": [
+      "Requesting session"
+    ],
+    "summary": "Requesting session",
+    "description": "Requests a session using the provided registration number.",
+    "parameters": [
+      {
+        "name": "regnumber",
+        "in": "path",
+        "required": true,
+        "description": "The registration number to request a session.",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
         "responses": {
           "200": {
             "description": "Session requested successfully",
