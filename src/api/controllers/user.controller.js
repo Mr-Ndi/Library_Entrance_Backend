@@ -1,6 +1,7 @@
 import httpStatus from "http-status";
 import { registerUser } from "../../services/user.service.js";
-import { status } from "express/lib/response.js";
+// import express from "express";
+import User from "../models/user.model.js";
 
 const requestSession = async (req, res) => {
     const { reg } = req.params;
@@ -18,7 +19,7 @@ const requestSession = async (req, res) => {
 
     try {
         // Step 2: Check User Existence in Database
-        const user = await User.findOne({ regNo: regNumber }); // Adjust field name as needed
+        const user = await User.findOne({ regNo: regNumber });
 
         if (!user) {
             return res.status(404).json({ message: "User not found.", status: 0 });
