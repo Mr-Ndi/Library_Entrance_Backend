@@ -13,16 +13,17 @@ const registerUser = async (inputs) => {
 
         // Recording attendance if user exists
         if (foundUser) {
-            const recorded = await recordAttendance(regNo);
+            const {_id, ...idRemoved} = foundUser;
+            const recorded = await recordAttendance(idRemoved.regNo);
             return (recorded?.success === false)?
-                recorded : {...foundUser, ...recorded}
+                recorded : {...idRemoved, ...recorded}
 
         }
 
         // Creating new user if not found
         const newUser = new User(inputs);
         const registered = await newUser.save();
-        const formattedUser = dataFormatter(registered);
+        const {_id, ...formattedUser} = dataFormatter(registered);
 
         // Recording new user attendance
         const recorded = await recordAttendance(formattedUser.regNo);

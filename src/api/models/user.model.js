@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
     regNo:{
-        type:String,
+        type:Number,
         required:true,
         unique:true
     },

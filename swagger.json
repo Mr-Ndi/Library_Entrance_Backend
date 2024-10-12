@@ -59,6 +59,113 @@
           }
         }
       }
+    },
+    "/api/user":{
+      "post":{
+        "tags":[
+          "Requesting session"
+        ],
+        "summary":"User registration",
+        "describtion":"Registering new user and recording them for attendance",
+        "requestBody":{
+          "required":true,
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "regNo": {
+                    "type":"integer",
+                    "example":222003242
+                  },
+                  "firstName":{
+                    "type":"string"
+                  },
+                  "otherName":{
+                    "type":"string"
+                  },
+                  "level":{
+                    "type":"integer"
+                  },
+                  "department":{
+                    "type":"string"
+                  },
+                  "gender":{
+                    "type":"string",
+                    "enum":[
+                      "male",
+                      "female"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "desccription":"Registration successful",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"object",
+                  "properties":{
+                    "success":{
+                      "type":"boolean"
+                    },
+                    "refId":{
+                      "type":"string"
+                    },
+                    "regNo": {
+                      "type":"integer",
+                      "example":222003242
+                    },
+                    "firstName":{
+                      "type":"string"
+                    },
+                    "otherName":{
+                      "type":"string"
+                    },
+                    "level":{
+                      "type":"integer"
+                    },
+                    "department":{
+                      "type":"string"
+                    },
+                    "gender":{
+                      "type":"string",
+                      "enum":[
+                        "male",
+                        "female"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500":{
+            "description":"Something went wrong in server",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"object",
+                  "properties":{
+                    "success":{
+                      "type":"boolean",
+                      "example":false
+                    },
+                    "message":{
+                      "type":"string",
+                      "example":"Server error"
+                    }
+                  }                  
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
