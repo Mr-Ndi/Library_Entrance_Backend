@@ -31,9 +31,9 @@ const addUser = async (req, res, next) => {
         gender
     });
 
-    if ( added?.status === 0 )
+    if ( added?.success === false )
         return res.status(httpStatus.INTERNAL_SERVER_ERROR).json(added);
-    return res.status(httpStatus.OK).json(added);
+    return res.status(httpStatus.OK).json({success:true, ...added});
 }
 
 export default {
