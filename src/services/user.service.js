@@ -14,17 +14,20 @@ const registerUser = async (inputs) => {
         // Recording attendance if user exists
         if (foundUser) {
             const recorded = await recordAttendance(regNo);
-            return dataFormatter(recorded);
+            return (recorded?.success === false)?
+                recorded : {...foundUser, ...recorded}
+
         }
 
         // Creating new user if not found
         const newUser = new User(inputs);
         const registered = await newUser.save();
-        const regData = dataFormatter(registered);
+        const formattedUser = dataFormatter(registered);
 
         // Recording new user attendance
-        const recorded = await recordAttendance(regData.regNo);
-        return dataFormatter(recorded);
+        const recorded = await recordAttendance(formattedUser.regNo);
+        return (recorded?.success === false)?
+            recorded : {...formattedUser, ...recorded}
 
     } catch (err) {
         console.error("Server error!!??:",err.stack);
@@ -42,7 +45,8 @@ const recordAttendance = async (regNmbr) => {
 
     try {
         const recorded = await record.save();
-        return recorded;
+        const {_id : refId, ...rest} = dataFormatter(recorded);
+        return  {refId};
     } catch (err) {
         console.error("Server error!!??:",err.stack);
         return {
@@ -60,8 +64,8 @@ const findUser = async (regNmbr) => {
 
         if ( !foundUser )  
             return null;
-        return foundUser.toObject();
-    } catch (err) {
+        return dataFormatter(foundUser);
+      } catch (err) {
         console.error("Server error!!??:",err.stack);
         return {
             message:"Server error",
