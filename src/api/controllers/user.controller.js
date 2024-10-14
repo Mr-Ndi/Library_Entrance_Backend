@@ -1,7 +1,6 @@
 import httpStatus from "http-status";
 import { registerUser } from "../../services/user.service.js";
-// import express from "express";
-import User from "../models/user.model.js";
+import { User } from "../models/user.model.js";
 
 const requestSession = async (req, res) => {
     const { reg } = req.params;
