@@ -67,15 +67,16 @@ const findUser = async (regNmbr) => {
             return null;
         return dataFormatter(foundUser);
       } catch (err) {
-        console.error("Server error!!??:",err.stack);
         return {
             message:"Server error",
             success:false
-        }   
+        }
+        
     }
 }
 
 
 export {
-    registerUser
+    registerUser,
+    findUser
 }
