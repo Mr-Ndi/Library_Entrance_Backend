@@ -4,9 +4,8 @@ import { findUser } from "../../services/user.service.js";
 
 const requestSession = async (req, res) => {
     const { reg } = req.params;
-    console.log(`Received registration number: ${reg}`); // Log reg value
+    // console.log(`Received registration number: ${reg}`);
 
-    // Step 1: Validate the Registration Number
     if (!reg) {
         return res.status(400).json({ message: "Registration number is required." });
     }
@@ -22,7 +21,9 @@ const requestSession = async (req, res) => {
             }
         }
 
-        return res.status(200).json(result.user);
+        const { __v, ...formattedUser } = result.user.toObject();
+
+        return res.status(200).json(formattedUser);
     } catch (error) {
         console.error("Error fetching user:", error);
         return res.status(500).json({ message: "Internal server error." });
