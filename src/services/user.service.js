@@ -46,8 +46,9 @@ const recordAttendance = async (regNmbr) => {
 
     try {
         const recorded = await record.save();
+        const recordedAt = recorded._id.getTimestamp();
         const {_id : refId, ...rest} = dataFormatter(recorded);
-        return  {refId};
+        return  {refId, recordedAt};
     } catch (err) {
         console.error("Server error!!??:",err.stack);
         return {
