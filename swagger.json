@@ -54,6 +54,9 @@
               }
             }
           },
+          "204": {
+            "desccription": "No content to return; the request was successful but there is no such student."
+          },
           "400": {
             "description": "Bad request"
           },
