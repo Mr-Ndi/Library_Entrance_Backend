@@ -60,21 +60,29 @@ const recordAttendance = async (regNmbr) => {
 
 const findUser = async (regNmbr) => {
     try {
+        console.log(`Searching for user with regNo: ${regNmbr}`);
+        
         const foundUser = await User.findOne({
-            regNo:regNmbr
+            regNo: Number(regNmbr) // Convert to number
         });
 
-        if ( !foundUser )  
-            return null;
-        return dataFormatter(foundUser);
-      } catch (err) {
-        return {
-            message:"Server error",
-            success:false
+        if (!foundUser) {
+            console.log(`No user found with regNo: ${regNmbr}`);
+            return { user: null, success: false };
         }
-        
+
+        console.log(`Found user: ${JSON.stringify(foundUser)}`);
+        return { user: dataFormatter(foundUser), success: true };
+    } catch (err) {
+        console.error(`Error fetching user: ${err.message}`);
+        return {
+            message: "Server error",
+            success: false,
+            error: err.message
+        };
     }
 }
+
 
 
 export {

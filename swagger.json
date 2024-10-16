@@ -8,6 +8,9 @@
   "servers": [
     {
       "url": "http://localhost:5000"
+    },
+    {
+      "url":"https://library-entrance-backend.onrender.com"
     }
   ],
   "tags": [
@@ -50,6 +53,9 @@
                 }
               }
             }
+          },
+          "204": {
+            "desccription": "No content to return; the request was successful but there is no such student."
           },
           "400": {
             "description": "Bad request"
