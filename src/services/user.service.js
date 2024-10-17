@@ -77,7 +77,7 @@ const findUser = async (regNmbr) => {
         return {
             message: "Server error",
             success: false,
-            error: err.message
+            // error: err.message
         };
     }
 }
@@ -86,5 +86,6 @@ const findUser = async (regNmbr) => {
 
 export {
     registerUser,
-    findUser
+    findUser,
+    recordAttendance
 }

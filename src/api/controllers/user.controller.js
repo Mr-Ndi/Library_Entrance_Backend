@@ -1,6 +1,6 @@
 import httpStatus from "http-status";
 import { registerUser } from "../../services/user.service.js";
-import { findUser } from "../../services/user.service.js";
+import { findUser, recordAttendance } from "../../services/user.service.js";
 
 const requestSession = async (req, res) => {
     const { reg } = req.params;
@@ -15,7 +15,7 @@ const requestSession = async (req, res) => {
       
         if (!result.success) {
             if (result.user === null) {
-                return res.status(404).json({ message: "User not found.", success: false });
+                return res.status(204).json({ message: "User not found.", success: false });
             } else {
                 return res.status(httpStatus.INTERNAL_SERVER_ERROR).json(result);
             }
@@ -24,6 +24,7 @@ const requestSession = async (req, res) => {
         const { __v, ...formattedUser } = result.user.toObject();
 
         return res.status(200).json(formattedUser);
+        recordAttendance(reg)
     } catch (error) {
         console.error("Error fetching user:", error);
         return res.status(500).json({ message: "Internal server error." });
