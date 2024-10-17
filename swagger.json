@@ -138,6 +138,9 @@
                     "department":{
                       "type":"string"
                     },
+                    "recordedAt":{
+                      "type":"string"
+                    },
                     "gender":{
                       "type":"string",
                       "enum":[

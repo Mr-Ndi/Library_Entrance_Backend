@@ -7,18 +7,18 @@ const registerUser = async (inputs) => {
 
         const foundUser =  await findUser(regNo);
 
-        // If error occured in finding user we return error
-        if (foundUser?.success === false)
-            return foundUser;
-
         // Recording attendance if user exists
-        if (foundUser) {
-            const {_id, ...idRemoved} = foundUser;
+        if (foundUser?.success === true) {
+            const {_id, ...idRemoved} = dataFormatter(foundUser.user);
             const recorded = await recordAttendance(idRemoved.regNo);
             return (recorded?.success === false)?
                 recorded : {...idRemoved, ...recorded}
 
         }
+
+        // If error occured in finding user we return error
+        if (foundUser?.success === false && Object.hasOwn(foundUser, "message"))
+            return foundUser;
 
         // Creating new user if not found
         const newUser = new User(inputs);
@@ -46,8 +46,9 @@ const recordAttendance = async (regNmbr) => {
 
     try {
         const recorded = await record.save();
+        const recordedAt = recorded._id.getTimestamp();
         const {_id : refId, ...rest} = dataFormatter(recorded);
-        return  {refId};
+        return  {refId, recordedAt};
     } catch (err) {
         console.error("Server error!!??:",err.stack);
         return {
