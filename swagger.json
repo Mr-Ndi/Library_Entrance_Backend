@@ -55,7 +55,22 @@
             }
           },
           "204": {
-            "desccription": "No content to return; the request was successful but there is no such student."
+            "desccription": "No content to return; the request was successful but there is no such student.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "status":{
+                      "type":"boolean"
+                    }
+                  }
+                }
+              }
+            }
           },
           "400": {
             "description": "Bad request"

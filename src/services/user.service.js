@@ -83,8 +83,6 @@ const findUser = async (regNmbr) => {
     }
 }
 
-
-
 export {
     registerUser,
     findUser,
