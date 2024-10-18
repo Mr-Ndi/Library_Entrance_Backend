@@ -38,6 +38,17 @@ const historySchema = new mongoose.Schema({
     }
 });
 
+const schoolSchema = new mongoose.Schema({
+    name :{ 
+        type: String,
+        required:true
+    },
+    department :{
+        type: Array,
+        required: true
+    }
+})
+
 const User = mongoose.model('User', userSchema);
 const History = mongoose.model('History', historySchema );
 
