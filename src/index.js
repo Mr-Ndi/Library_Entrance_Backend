@@ -12,6 +12,8 @@ app.use(cors());
 
 await dbConnection();
 
+app.get('/', (req, res) => res.redirect('/api-docs'))
+
 app.use('/api', routes);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
