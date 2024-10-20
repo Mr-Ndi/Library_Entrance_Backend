@@ -3,6 +3,7 @@ import { History } from '../api/models/history.model.js';
 import AppError from '../errors.js';
 import dataFormatter from '../utils/dataFormatter.js';
 import ticketIdGenerator from '../utils/ticketIdGenerator.js';
+import { userHasTicket } from './history.service.js';
 
 const registerUser = async (inputs) => {
     const {regNo, firstName, otherName, department, level, gender} = inputs;
@@ -49,6 +50,12 @@ const recordAttendance = async (regNmbr) => {
     });
 
     try {
+
+        const hasTicket = await userHasTicket(regNmbr);
+
+        if (hasTicket)
+            throw new AppError("User has ticket", 400);
+
         const recorded = await record.save();
         const recordedAt = recorded._id.getTimestamp();
         const {_id : refId, ...rest} = dataFormatter(recorded);
