@@ -51,8 +51,10 @@ const schoolSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 const History = mongoose.model('History', historySchema );
+const School = mongoose.model('School', schoolSchema)
 
 export {
     User,
-    History
+    History,
+    School
 }
