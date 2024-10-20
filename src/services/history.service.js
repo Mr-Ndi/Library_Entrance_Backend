@@ -16,7 +16,6 @@ const isValidRef = async (refId) => {
             user:dataFormatter(user)
         }
     }
-
     return {valid};
 } 
 
