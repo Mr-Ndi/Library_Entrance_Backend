@@ -1,9 +1,9 @@
 import express from "express";
-import routes from './api/routes/user.routes.js';
 import swaggerUi from 'swagger-ui-express';
 import cors from "cors";
 import swaggerDocument from '../swagger.json' assert { type: 'json' };
 import dbConnection from "./config/database.js";
+import routes from "./api/routes/index.js";
 
 const app = express();
 app.use(express.json());
@@ -11,7 +11,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 await dbConnection();
-
 app.get('/', (req, res) => res.redirect('/api-docs'))
 
 app.use('/api', routes);
