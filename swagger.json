@@ -195,14 +195,14 @@
         }
       }
     },
-    "/api/history/{refId}":{
+    "/api/history/{ticketId}":{
       "get":{
         "tags":["history"],
         "summary":"Ticket validation endpoint",
         "description":"This endpoint is for validating if the ticket is today's one",
         "parameters":[
           {
-            "name":"refId",
+            "name":"ticketId",
             "required":true,
             "in":"path",
             "schema":{
