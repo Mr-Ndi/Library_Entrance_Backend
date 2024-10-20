@@ -1,28 +1,19 @@
 import httpStatus from 'http-status'; 
-import { checkRec } from '../../services/history.service.js';
-import validateDate from '../../utils/dateValidator.js';
+import { isValidRef } from '../../services/history.service.js';
 
-const validateRecord = async (req, res) => {
+const validateRecord = async (req, res, next) => {
     const {refId} = req.params;
 
     if (!refId)
         return res.status(httpStatus.BAD_REQUEST).json({success:false, message:"Reference Id is required"});
     try {
-        const record = await checkRec(refId);
-    
-        if (!record)
-            return res.status(httpStatus.NOT_FOUND).json({success:false, message:"Record not found."});
-
-        const valid = validateDate(record._id.getTimestamp());
-
+        const valid = await isValidRef(refId);
         return res.status(httpStatus.OK).json({
-            success:true,
-            valid
-        })
-        
+            valid,
+            success:true
+        });
     } catch (err) {
-        console.error("Server error:", err.stack);
-        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({success:false, message:'Server error'})
+        next(err);
     }
 }
 
