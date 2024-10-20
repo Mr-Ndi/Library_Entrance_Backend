@@ -9,8 +9,8 @@ const validateRecord = async (req, res, next) => {
     try {
         const valid = await isValidRef(refId);
         return res.status(httpStatus.OK).json({
-            valid,
-            success:true
+            success:true,
+            ...valid
         });
     } catch (err) {
         next(err);

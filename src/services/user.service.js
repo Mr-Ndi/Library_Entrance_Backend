@@ -1,4 +1,5 @@
 import {User, History} from '../api/models/user.model.js';
+import AppError from '../errors.js';
 import dataFormatter from '../utils/dataFormatter.js';
 
 const registerUser = async (inputs) => {
@@ -83,8 +84,16 @@ const findUser = async (regNmbr) => {
     }
 }
 
+const getUser = async (regNumber) => {
+    const user = await User.findOne({regNo:regNumber});
+    if (!user)
+        throw new AppError("No such user", 404);
+    return user;
+}
+
 export {
     registerUser,
     findUser,
+    getUser,
     recordAttendance
 }
