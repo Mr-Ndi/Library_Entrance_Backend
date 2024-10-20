@@ -4,8 +4,10 @@ import dataFormatter from "../utils/dataFormatter.js";
 import validateDate from '../utils/dateValidator.js';
 import { getUser } from "./user.service.js";
 
-const isValidRef = async (refId) => {
-    const record = await History.findById(refId);
+const isValidTicket = async (ticketId) => {
+    const record = await History.findOne({
+        ticketId
+    });
     if (!record)
         throw new AppError("Invalid ticket id", 404);
     const valid = validateDate(record._id.getTimestamp());
@@ -20,5 +22,5 @@ const isValidRef = async (refId) => {
 } 
 
 export {
-    isValidRef
+    isValidTicket
 };

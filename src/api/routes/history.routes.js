@@ -3,6 +3,6 @@ import { validateRecord } from "../controllers/history.controller.js";
 
 const historyRoutes = Router();
 
-historyRoutes.route('/:refId').get(validateRecord);
+historyRoutes.route('/:ticketId').get(validateRecord);
 
 export default historyRoutes;
