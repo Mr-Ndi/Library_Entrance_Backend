@@ -16,28 +16,32 @@
   "tags": [
     {
       "name": "Requesting session",
-      "description": "Requesting session related endpoints"
+      "descsiption": "Requesting session related endpoints"
+    },
+    {
+      "name":"history",
+      "description":"History related endpoints"
     }
   ],
   "paths": {
     "/api/user/{regnumber}": {
-  "get": {
-    "tags": [
-      "Requesting session"
-    ],
-    "summary": "Requesting session",
-    "description": "Requests a session using the provided registration number.",
-    "parameters": [
-      {
-        "name": "regnumber",
-        "in": "path",
-        "required": true,
-        "description": "The registration number to request a session.",
-        "schema": {
-          "type": "string"
-        }
-      }
-    ],
+      "get": {
+        "tags": [
+          "Requesting session"
+        ],
+        "summary": "Requesting session",
+        "description": "Requests a session using the provided registration number.",
+        "parameters": [
+          {
+            "name": "regnumber",
+            "in": "path",
+            "required": true,
+            "description": "The registration number to request a session.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Session requested successfully",
@@ -184,6 +188,65 @@
                       "example":"Server error"
                     }
                   }                  
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/history/{refId}":{
+      "get":{
+        "tags":["history"],
+        "summary":"Ticket validation endpoint",
+        "description":"This endpoint is for validating if the ticket is today's one",
+        "parameters":[
+          {
+            "name":"refId",
+            "required":true,
+            "in":"path",
+            "schema":{
+              "type":"string"
+            }
+          }
+        ],
+        "responses":{
+          "500":{
+            "summary":"Enternal server error",
+            "description":"Unexpected error occured on server while handling request",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"object",
+                  "properties":{
+                    "success":{
+                      "type":"boolean"
+                    },
+                    "message":{
+                      "type":"string",
+                      "example":"Server error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404":{
+            "summary":"Invalid ticket id",
+            "description":"Provided reference id not found",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"object",
+                  "properties":{
+                    "success":{
+                      "type":"boolean"
+                    },
+                    "message":{
+                      "type":"string",
+                      "example":"Invalid ticket id"
+                    }
+                  }
                 }
               }
             }
