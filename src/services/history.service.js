@@ -1,4 +1,4 @@
-import { History } from "../api/models/user.model.js"
+import { History } from "../api/models/history.model.js"
 import AppError from "../errors.js";
 import dataFormatter from "../utils/dataFormatter.js";
 import validateDate from '../utils/dateValidator.js';

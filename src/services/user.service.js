@@ -1,6 +1,8 @@
-import {User, History} from '../api/models/user.model.js';
+import {User} from '../api/models/user.model.js';
+import { History } from '../api/models/history.model.js';
 import AppError from '../errors.js';
 import dataFormatter from '../utils/dataFormatter.js';
+import ticketIdGenerator from '../utils/ticketIdGenerator.js';
 
 const registerUser = async (inputs) => {
     const {regNo, firstName, otherName, department, level, gender} = inputs;
@@ -42,14 +44,15 @@ const registerUser = async (inputs) => {
 
 const recordAttendance = async (regNmbr) => {
     const record = new History({
-        regNo:regNmbr
+        regNo:regNmbr,
+        ticketId:ticketIdGenerator(regNmbr)
     });
 
     try {
         const recorded = await record.save();
         const recordedAt = recorded._id.getTimestamp();
         const {_id : refId, ...rest} = dataFormatter(recorded);
-        return  {refId, recordedAt};
+        return  {...rest, recordedAt};
     } catch (err) {
         console.error("Server error!!??:",err.stack);
         return {

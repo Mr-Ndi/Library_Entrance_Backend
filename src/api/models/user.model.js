@@ -30,14 +30,6 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-const historySchema = new mongoose.Schema({
-    regNo:{
-        type:String,
-        ref:'User',
-        required:true        
-    }
-});
-
 const schoolSchema = new mongoose.Schema({
     name :{ 
         type: String,
@@ -50,11 +42,9 @@ const schoolSchema = new mongoose.Schema({
 })
 
 const User = mongoose.model('User', userSchema);
-const History = mongoose.model('History', historySchema );
 const School = mongoose.model('School', schoolSchema)
 
 export {
     User,
-    History,
     School
 }

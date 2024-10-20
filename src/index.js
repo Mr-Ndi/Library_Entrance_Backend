@@ -5,7 +5,6 @@ import swaggerDocument from '../swagger.json' assert { type: 'json' };
 import dbConnection from "./config/database.js";
 import routes from "./api/routes/index.js";
 import errorHandler from "./middleware/errorHandler.middleware.js";
-import ticketIdGenerator from "./utils/ticketIdGenerator.js";
 
 const app = express();
 app.use(express.json());
