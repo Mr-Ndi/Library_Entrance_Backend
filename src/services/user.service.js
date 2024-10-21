@@ -7,40 +7,23 @@ import { userHasTicket } from './history.service.js';
 
 const registerUser = async (inputs) => {
     const {regNo, firstName, otherName, department, level, gender} = inputs;
-    try {
+    const userExists = await User.findOne({regNo});
+    if (userExists)
+        throw new AppError("User already registered", 200);
+    const newUser = new User({
+        regNo,
+        firstName,
+        otherName,
+        department,
+        level,
+        gender
+    });
 
-        const foundUser =  await findUser(regNo);
+    const user = await newUser.save();
+    const ticket = await recordAttendance(user.regNo);
+    const {_id, ...rest} = dataFormatter(user);
 
-        // Recording attendance if user exists
-        if (foundUser?.success === true) {
-            const {_id, ...idRemoved} = dataFormatter(foundUser.user);
-            const recorded = await recordAttendance(idRemoved.regNo);
-            return (recorded?.success === false)?
-                recorded : {...idRemoved, ...recorded}
-
-        }
-
-        // If error occured in finding user we return error
-        if (foundUser?.success === false && Object.hasOwn(foundUser, "message"))
-            return foundUser;
-
-        // Creating new user if not found
-        const newUser = new User(inputs);
-        const registered = await newUser.save();
-        const {_id, ...formattedUser} = dataFormatter(registered);
-
-        // Recording new user attendance
-        const recorded = await recordAttendance(formattedUser.regNo);
-        return (recorded?.success === false)?
-            recorded : {...formattedUser, ...recorded}
-
-    } catch (err) {
-        console.error("Server error!!??:",err.stack);
-        return {
-            message:"Server error",
-            success:false
-        }      
-    }
+    return {...rest, ...ticket};
 }
 
 const recordAttendance = async (regNmbr) => {
