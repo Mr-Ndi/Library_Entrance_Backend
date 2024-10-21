@@ -4,7 +4,7 @@ const ticketIdGenerator = (regNumber) => {
     
     const last4 = regNumber.toString().slice(-4);
     return (
-        `UR${Math.floor(Date.now()/1000)}-${last4}`
+        `UR${Date.now()}-${last4}`
     )
 };
 
