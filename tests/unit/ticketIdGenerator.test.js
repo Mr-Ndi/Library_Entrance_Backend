@@ -1,4 +1,4 @@
-import ticketIdGenerator from "../src/utils/ticketIdGenerator";
+import ticketIdGenerator from "../../src/utils/ticketIdGenerator";
 
 describe('ticketIdGenerator', () => {
     const regNumber = 222003832; // Example registration number
@@ -22,7 +22,6 @@ describe('ticketIdGenerator', () => {
     it('should have an epoch timestamp in the correct position', () => {
         const id = ticketIdGenerator(regNumber);
         const parts = id.match(/^UR(\d+)-(\d{4})$/);
-        console.log(parts);
         expect(parts).not.toBeNull(); // Ensures the format is valid
         const timestamp = parseInt(parts[1], 10);
 
@@ -31,5 +30,12 @@ describe('ticketIdGenerator', () => {
         const oneMinuteAgo = currentTimestamp - 60 * 1000;
         expect(timestamp).toBeGreaterThan(oneMinuteAgo);
         expect(timestamp).toBeLessThanOrEqual(currentTimestamp);
+    });
+
+    // New test: it should throw an error when regNumber is not provided
+    it('should throw an error when regNumber is not provided', () => {
+        expect(() => {
+            ticketIdGenerator(); // Calling without regNumber
+        }).toThrow('Registration number is required');
     });
 });
