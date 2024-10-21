@@ -1,7 +1,7 @@
 import express from "express";
 import swaggerUi from "swagger-ui-express";
 import cors from "cors";
-import swaggerDocument from "../swagger.json" assert { type: "json" };
+import swaggerDocument from "../swagger.json" with { type: "json" };
 import dbConnection from "./config/database.js";
 import routes from "./api/routes/index.js";
 import errorHandler from "./middleware/errorHandler.middleware.js";
@@ -11,7 +11,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-await dbConnection();
+const connect = async () => await dbConnection();
+connect();
+
 app.get("/", (req, res) => res.redirect("/api-docs"));
 
 app.use("/api", routes);
@@ -31,4 +33,4 @@ const server = app.listen(port, () => {
   );
 });
 
-export default server;
+export {app, server};

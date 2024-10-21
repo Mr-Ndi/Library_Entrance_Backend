@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "jest",
+    "test": "jest --verbose",
     "start": "node src/index.js",
     "dev": "nodemon src/index.js"
   },
