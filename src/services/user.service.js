@@ -49,61 +49,29 @@ const recordAttendance = async (regNmbr) => {
         ticketId:ticketIdGenerator(regNmbr)
     });
 
-    try {
-
-        const hasTicket = await userHasTicket(regNmbr);
-
-        if (hasTicket)
-            throw new AppError("User has ticket", 400);
-
-        const recorded = await record.save();
-        const recordedAt = recorded._id.getTimestamp();
-        const {_id : refId, ...rest} = dataFormatter(recorded);
-        return  {...rest, recordedAt};
-    } catch (err) {
-        console.error("Server error!!??:",err.stack);
-        return {
-            message:"Server error",
-            success:false
-        }        
-    }
+    const hasTicket = await userHasTicket(regNmbr);
+    if (hasTicket)
+        throw new AppError("User has ticket", 400);
+    const recorded = await record.save()
+    const recordedAt = recorded._id.getTimestamp();
+    const {_id, ...rest} = dataFormatter(recorded);
+    return  {...rest, recordedAt};
 }
-
-const findUser = async (regNmbr) => {
-    try {
-        // console.log(`Searching for user with regNo: ${regNmbr}`);
-        
-        const foundUser = await User.findOne({
-            regNo: Number(regNmbr)
-        });
-
-        if (!foundUser) {
-            console.log(`No user found with regNo: ${regNmbr}`);
-            return { user: null, success: false };
-        }
-
-        // console.log(`Found user: ${JSON.stringify(foundUser)}`);
-        return { user: foundUser, success: true };
-    } catch (err) {
-        console.error(`Error fetching user: ${err.message}`);
-        return {
-            message: "Server error",
-            success: false,
-            // error: err.message
-        };
-    }
-}
-
 const getUser = async (regNumber) => {
     const user = await User.findOne({regNo:regNumber});
     if (!user)
         throw new AppError("No such user", 404);
     return user;
 }
+const buyTicket = async (regNumber) => {
+    const user = await getUser(regNumber);
+    const recorded = await recordAttendance(regNumber);
+    return {...dataFormatter(user), ...recorded}
+}
 
 export {
     registerUser,
-    findUser,
     getUser,
+    buyTicket,
     recordAttendance
 }
