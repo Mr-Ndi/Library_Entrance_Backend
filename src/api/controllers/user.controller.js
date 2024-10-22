@@ -20,18 +20,20 @@ const addUser = async (req, res, next) => {
         department,
         gender
     } = req.body;
-    const added = await registerUser({
-        regNo,
-        level,
-        firstName,
-        otherName,
-        department,
-        gender
-    });
-
-    if ( added?.success === false )
-        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json(added);
-    return res.status(httpStatus.OK).json({success:true, ...added});
+    try {
+        const registered = await registerUser({
+            regNo,
+            level,
+            firstName,
+            otherName,
+            department,
+            gender
+        });      
+        
+        return res.status(httpStatus.OK).json({success:true, ...registered});
+    } catch (err) {
+        next(err);
+    }
 }
 
 export default {
