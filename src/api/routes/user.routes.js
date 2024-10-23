@@ -6,7 +6,6 @@ import { regNoValidator } from '../../middleware/regNoValidator.middleware.js';
 
 const userRoutes = Router();
 
-// Define GET route for session
 userRoutes.route('/:reg').get(regNoValidator(regNo), userController.requestSession)
 userRoutes.route('/').post(bodyValidator(userSchema), userController.addUser);
 
