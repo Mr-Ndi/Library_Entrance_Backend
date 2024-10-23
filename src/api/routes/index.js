@@ -4,7 +4,7 @@ import userRoutes from "./user.routes.js";
 
 const routes = Router();
 
-routes.use('/school')
+// routes.use('/school')
 routes.use('/history', historyRoutes);
 routes.use('/user', userRoutes);
 

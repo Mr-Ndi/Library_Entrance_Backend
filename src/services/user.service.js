@@ -9,7 +9,7 @@ const registerUser = async (inputs) => {
     const {regNo, firstName, otherName, department, level, gender} = inputs;
     const userExists = await User.findOne({regNo});
     if (userExists)
-        throw new AppError("User already registered", 200);
+        throw new AppError("User already exists", 400);
     const newUser = new User({
         regNo,
         firstName,
@@ -34,7 +34,7 @@ const recordAttendance = async (regNmbr) => {
 
     const hasTicket = await userHasTicket(regNmbr);
     if (hasTicket)
-        throw new AppError("User has ticket", 400);
+        throw new AppError("User already has a ticket for today", 400);
     const recorded = await record.save()
     const recordedAt = recorded._id.getTimestamp();
     const {_id, ...rest} = dataFormatter(recorded);

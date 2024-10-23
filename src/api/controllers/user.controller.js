@@ -30,7 +30,7 @@ const addUser = async (req, res, next) => {
             gender
         });      
         
-        return res.status(httpStatus.OK).json({success:true, ...registered});
+        return res.status(httpStatus.CREATED).json({success:true, ...registered});
     } catch (err) {
         next(err);
     }
