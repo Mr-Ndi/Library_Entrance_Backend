@@ -43,7 +43,7 @@ const recordAttendance = async (regNmbr) => {
 const getUser = async (regNumber) => {
     const user = await User.findOne({regNo:regNumber});
     if (!user)
-        throw new AppError("No such user", 404);
+        throw new AppError("User not found", 404);
     return user;
 }
 const buyTicket = async (regNumber) => {
