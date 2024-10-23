@@ -16,7 +16,7 @@ const userSchema = Joi.object({
         'string.min': 'Names must be at least 2 characters long'
     }),
     otherName: Joi.string().min(2).required().messages({
-        'string.empty': 'Other name is required',
+        'string.empty': 'Last name is required',
         'string.min': 'Names must be at least 2 characters long'
     }),
     department: Joi.string().required().messages({
