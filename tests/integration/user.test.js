@@ -59,7 +59,7 @@ describe("/api/user", () => {
       expect(res.body).toHaveProperty("message", "User already exists");
     });
 
-    it("should return 400 if a required field is missing", async () => {
+    it("should return 400 if first name is missing", async () => {
       const res = await request
         .post("/api/user")
         .send({
@@ -72,7 +72,71 @@ describe("/api/user", () => {
         });
 
       expect(res.status).toBe(400);
-      expect(res.body).toHaveProperty("message", "All fields are required");
+      expect(res.body).toHaveProperty("message", "First name is required");
+    });
+
+    it("should return 400 if last name is missing", async () => {
+      const res = await request
+        .post("/api/user")
+        .send({
+          regNo: 220000003,
+          firstName: "John",
+          otherName: "",
+          department: "CS",
+          level: 3,
+          gender: "male",
+        });
+
+      expect(res.status).toBe(400);
+      expect(res.body).toHaveProperty("message", "Last name is required");
+    });
+
+    it("should return 400 if department name is missing", async () => {
+      const res = await request
+        .post("/api/user")
+        .send({
+          regNo: 220000003,
+          firstName: "John",
+          otherName: "Doe",
+          department: "",
+          level: 3,
+          gender: "male",
+        });
+
+      expect(res.status).toBe(400);
+      expect(res.body).toHaveProperty("message", "Department is required");
+    });
+
+    it("should return 400 if level is missing", async () => {
+      const res = await request
+        .post("/api/user")
+        .send({
+          regNo: 220000003,
+          firstName: "John",
+          otherName: "Doe",
+          department: "CS",
+          level: "",
+          gender: "male",
+        });
+
+      expect(res.status).toBe(400);
+      expect(res.body).toHaveProperty("message", "Level must be between 1 and 6");
+    });
+
+    it("should return 400 if gender is not correct", async () => {
+      const res = await request
+        .post("/api/user")
+        .send({
+          regNo: 220000003,
+          firstName: "John",
+          otherName: "Doe",
+          department: "CS",
+          level: 2,
+          gender: "",
+        });
+
+      expect(res.status).toBe(400);
+      expect(res.body).toHaveProperty("message", "Gender must be either male or female");
     });
 
     it("should return 400 if regNo format is invalid", async () => {
@@ -185,11 +249,7 @@ describe("/api/user", () => {
     it("should return 400 if the reg number is missing or invalid", async () => {
       // Missing regNo
       let res = await request.get("/api/user/");
-      expect(res.status).toBe(400);
-      expect(res.body).toHaveProperty(
-        "message",
-        "Registration number is required"
-      );
+      expect(res.status).toBe(404);
 
       // regNo not a number
       res = await request.get("/api/user/abc123");

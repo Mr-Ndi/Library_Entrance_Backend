@@ -5,7 +5,7 @@ import schoolRoutes from "./school.routes.js";
 
 const routes = Router();
 
-routes.use('/school', schoolRoutes)
+routes.use('/school')
 routes.use('/history', historyRoutes);
 routes.use('/user', userRoutes);
 
