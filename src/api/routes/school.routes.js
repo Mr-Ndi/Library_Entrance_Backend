@@ -1,4 +1,6 @@
 import { Router } from "express";
 
-const school = Router();
-school.route('/').get()
+const schoolRoutes = Router();
+schoolRoutes.route('/').get()
+
+export default schoolRoutes;
