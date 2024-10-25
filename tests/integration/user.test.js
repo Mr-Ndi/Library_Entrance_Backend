@@ -302,7 +302,7 @@ describe("/api/user", () => {
     it("should create a new history record and return firstName, otherName, and ticketId if valid", async () => {
       const res = await request.get("/api/user/220000002");
 
-      expect(res.status).toBe(200);
+      expect(res.status).toBe(201);
       expect(res.body).toHaveProperty("firstName", "Jane");
       expect(res.body).toHaveProperty("otherName", "Smith");
       expect(res.body).toHaveProperty("ticketId");
