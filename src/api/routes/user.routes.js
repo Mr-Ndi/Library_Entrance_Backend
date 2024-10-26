@@ -6,7 +6,7 @@ import { regNoValidator } from '../../middleware/regNoValidator.middleware.js';
 
 const userRoutes = Router();
 
-userRoutes.route('/:reg').get(regNoValidator(regNo), userController.requestSession)
+userRoutes.route('/:reg').post(regNoValidator(regNo), userController.requestSession)
 userRoutes.route('/').post(bodyValidator(userSchema), userController.addUser);
 
 export default userRoutes;
