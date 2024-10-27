@@ -1,6 +1,3 @@
-Certainly! Below is a proposed README file for the Library Entrance API, formatted with Markdown headers for clarity and organization.
-
-```markdown
 # Library Entrance API
 
 ## Version
@@ -64,7 +61,6 @@ The Library Entrance API provides endpoints for user registration, session reque
     "department": "Computer Science",
     "gender": "male"
   }
-  ```
 - **Responses:**
   - **200:** Registration successful.
     - Content:
@@ -154,5 +150,4 @@ Your Email
 Your GitHub Profile
 
 ```
-
 Feel free to customize any sections, especially under “Getting Started” and “Author,” according to your project's specifics!
